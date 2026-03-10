@@ -1,6 +1,7 @@
 use dotenv::dotenv;
 use redis::Commands;
 use std::env;
+use random_word::Lang;
 
 fn main() {
     dotenv().ok();
@@ -35,7 +36,7 @@ fn main() {
 
     // add words to the list
     for i in 0..count {
-        let word = random_word::gen();
+        let word = random_word::get(Lang::En);
         println!("{} {}", i + 1, word);
         let _: () = con.rpush(&redis_list, word).unwrap();
     }
